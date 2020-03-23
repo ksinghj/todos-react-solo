@@ -3,27 +3,27 @@ import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
 
 class App extends React.Component {
-  state = { todos: ["Walk dog", "Eat kima", "play Destiny"], newTodo: "" };
+  state = { todos: [""], inputValue: "" };
 
-  addTodo = event => {
-    // console.log(event.target.value);
-    // todo: add to state array
-    this.setState({
-      newTodo: event.target.value,
-      todos: [...this.state.todos, this.state.newTodo]
-    });
-
-    console.log(this.state.newTodo);
+  handleInputChange = event => {
+    this.setState({ inputValue: event.target.value });
   };
 
-  prevent = event => {
+  addTodo = event => {
     event.preventDefault();
+    const { todos, inputValue } = this.state;
+    this.setState({ todos: [...todos, inputValue] });
+    console.log(this.state.todos);
   };
 
   render() {
     return (
       <div className="ui container">
-        <AddTodo addTodo={this.addTodo} prevent={this.prevent} />
+        <AddTodo
+          handleInputChange={this.handleInputChange}
+          prevent={this.prevent}
+          addTodo={this.addTodo}
+        />
         <TodoList todos={this.state.todos} />
       </div>
     );
