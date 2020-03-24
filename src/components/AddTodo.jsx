@@ -1,6 +1,22 @@
 import React from "react";
 
 class AddTodo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.txtRef = React.createRef();
+  }
+
+  handleFocus = event => {
+    event.target.select();
+  };
+
+  // highlightText = ref => {
+  //   ref = this.txtRef.current;
+  //   ref.target.select();
+  // };
+
+  // onClick={this.highlightText}
+
   render() {
     return (
       <div>
@@ -8,6 +24,7 @@ class AddTodo extends React.Component {
           <div className="field">
             <label>Add a todo here:</label>
             <input
+              onFocus={this.handleFocus}
               ref={this.txtRef}
               type="text"
               placeholder="Walk the dog..."

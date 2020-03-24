@@ -13,7 +13,6 @@ class App extends React.Component {
     event.preventDefault();
     const { todos, inputValue } = this.state;
     this.setState({ todos: [...todos, inputValue] });
-    console.log(this.state.todos);
   };
 
   render() {
