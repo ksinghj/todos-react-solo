@@ -1,6 +1,6 @@
 import React from "react";
 
-class AddTodo extends React.Component {
+class InputBar extends React.Component {
   constructor(props) {
     super(props);
     this.txtRef = React.createRef();
@@ -37,4 +37,4 @@ class AddTodo extends React.Component {
   }
 }
 
-export default AddTodo;
+export default InputBar;

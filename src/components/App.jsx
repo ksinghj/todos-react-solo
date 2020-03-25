@@ -1,9 +1,9 @@
 import React from "react";
-import AddTodo from "./AddTodo";
+import InputBar from "./InputBar";
 import TodoList from "./TodoList";
 
 class App extends React.Component {
-  state = { todos: [""], inputValue: "" };
+  state = { todos: [], inputValue: "" };
 
   handleInputChange = event => {
     this.setState({ inputValue: event.target.value });
@@ -15,15 +15,21 @@ class App extends React.Component {
     this.setState({ todos: [...todos, inputValue] });
   };
 
+  deleteTodo = () => {
+    console.log("Todo Deleted");
+  };
+
   render() {
     return (
       <div className="ui container">
-        <AddTodo
+        <InputBar
           handleInputChange={this.handleInputChange}
           prevent={this.prevent}
           addTodo={this.addTodo}
         />
-        <TodoList todos={this.state.todos} />
+        <div className="todolistparent">
+          <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
+        </div>
       </div>
     );
   }
