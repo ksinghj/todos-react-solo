@@ -29,7 +29,9 @@ class InputBar extends React.Component {
               type="text"
               placeholder="Walk the dog..."
               onChange={this.props.handleInputChange}></input>
-            <button type="submit">Submit</button>
+            <button className="ui button" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </div>

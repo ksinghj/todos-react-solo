@@ -12,12 +12,34 @@ class App extends React.Component {
   addTodo = event => {
     event.preventDefault();
     const { todos, inputValue } = this.state;
-    this.setState({ todos: [...todos, inputValue] });
+    // Prevent form submission on empty value
+    // If inputValue is not empty (true) then proceed to next code block (&&)
+    inputValue !== "" && this.setState({ todos: [...todos, inputValue] });
   };
 
-  deleteTodo = () => {
+  deleteTodo = e => {
     console.log("Todo Deleted");
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.filter(todo => {
+        const remove = e.target.closest(".js-delete-todo");
+        return todo !== remove;
+      })
+    });
   };
+
+  // CLEAR ALL TODOS
+  // deleteTodo = e => {
+  //   console.log("Todo Deleted");
+  //   const remove = e.target.closest(".js-delete-todo");
+  //   const { todos } = this.state;
+  //   this.setState({
+  //     todos: todos.filter(todo => {
+  //       console.log("removed with filter");
+  //       return todo !== todo;
+  //     })
+  //   });
+  // };
 
   render() {
     return (
@@ -27,9 +49,7 @@ class App extends React.Component {
           prevent={this.prevent}
           addTodo={this.addTodo}
         />
-        <div className="todolistparent">
-          <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
-        </div>
+        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
       </div>
     );
   }
