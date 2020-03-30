@@ -10,6 +10,7 @@ class InputBar extends React.Component {
     event.target.select();
   };
 
+  // TODO: Ask StackOverflow - highlight text on submit
   // highlightText = ref => {
   //   ref = this.txtRef.current;
   //   ref.target.select();

@@ -3,7 +3,7 @@ import InputBar from "./InputBar";
 import TodoList from "./TodoList";
 
 class App extends React.Component {
-  state = { todos: [], inputValue: "" };
+  state = { todos: [], newTodos: [], inputValue: "", message: "" }; // TODO: Add toast to tell user item is already on list, todos have been cleared etc
 
   handleInputChange = event => {
     this.setState({ inputValue: event.target.value });
@@ -17,25 +17,21 @@ class App extends React.Component {
     inputValue !== "" && this.setState({ todos: [...todos, inputValue] });
   };
 
-  deleteTodo = e => {
-    console.log("Todo Deleted");
-    const { todos } = this.state;
+  deleteTodo = remove => {
     this.setState({
-      todos: todos.filter(todo => {
-        const remove = e.target.closest(".js-delete-todo");
+      todos: this.state.todos.filter(todo => {
         return todo !== remove;
       })
     });
+    console.log("Deleted", this.state.todos);
   };
 
-  // CLEAR ALL TODOS
-  // deleteTodo = e => {
-  //   console.log("Todo Deleted");
-  //   const remove = e.target.closest(".js-delete-todo");
+  // TODO: CLEAR ALL TODOS (link button to this function)
+  // clearAllTodos = e => {
   //   const { todos } = this.state;
   //   this.setState({
   //     todos: todos.filter(todo => {
-  //       console.log("removed with filter");
+  //       console.log("removed all todos");
   //       return todo !== todo;
   //     })
   //   });
@@ -49,7 +45,12 @@ class App extends React.Component {
           prevent={this.prevent}
           addTodo={this.addTodo}
         />
-        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
+        <TodoList
+          todos={this.state.todos}
+          deleteTodo={this.deleteTodo}
+          clearAllTodos={this.clearAllTodos}
+          message={this.state.message}
+        />
       </div>
     );
   }

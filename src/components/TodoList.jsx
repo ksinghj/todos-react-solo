@@ -9,8 +9,24 @@ class TodoList extends React.Component {
     });
   };
 
+  clearAll = () => {
+    const { message, clearAllTodos } = this.props;
+    if (message) {
+      return (
+        <button className="ui button" onClick={clearAllTodos}>
+          Clear All
+        </button>
+      );
+    }
+  };
+
   render() {
-    return <div className="ui grid">{this.renderTodos()}</div>;
+    return (
+      <React.Fragment>
+        <div className="ui grid">{this.renderTodos()}</div>
+        <div>{this.clearAll()}</div>
+      </React.Fragment>
+    );
   }
 }
 
