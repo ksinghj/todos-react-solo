@@ -23,8 +23,10 @@ class InputBar extends React.Component {
       <div>
         <form onSubmit={this.props.addTodo} className="ui form">
           <div className="field">
-            <label>Add a todo here:</label>
+            <label style={{ marginBottom: "1em" }}>Add a todo here:</label>
             <input
+              style={{ marginBottom: "1em" }}
+              className="css-comp__input-bar"
               onFocus={this.handleFocus}
               ref={this.txtRef}
               type="text"

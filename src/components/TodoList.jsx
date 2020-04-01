@@ -5,15 +5,24 @@ class TodoList extends React.Component {
   renderTodos = () => {
     const { todos, deleteTodo } = this.props;
     return todos.map(todo => {
-      return <TodoItem key={todo} todo={todo} deleteTodo={deleteTodo} />;
+      // TODO: Change key to be unique!
+      return (
+        <TodoItem
+          key={todo}
+          todo={todo}
+          deleteTodo={deleteTodo}
+          style={{ background: "grey" }}
+        />
+      );
     });
   };
 
   clearAll = () => {
-    const { message, clearAllTodos } = this.props;
-    if (message) {
+    const { todos, clearAllTodos } = this.props;
+    if (todos.length > 0) {
       return (
-        <button className="ui button" onClick={clearAllTodos}>
+        // TODO: Top of button does not work (not clickable)
+        <button type="button" className="ui button" onClick={clearAllTodos}>
           Clear All
         </button>
       );
@@ -23,7 +32,7 @@ class TodoList extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="ui grid">{this.renderTodos()}</div>
+        <div style={{ marginTop: "1em" }}>{this.renderTodos()}</div>
         <div>{this.clearAll()}</div>
       </React.Fragment>
     );

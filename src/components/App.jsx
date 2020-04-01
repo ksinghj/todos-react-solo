@@ -1,9 +1,16 @@
 import React from "react";
 import InputBar from "./InputBar";
 import TodoList from "./TodoList";
+import MessageToast from "./MessageToast";
 
 class App extends React.Component {
-  state = { todos: [], newTodos: [], inputValue: "", message: "" }; // TODO: Add toast to tell user item is already on list, todos have been cleared etc
+  state = {
+    todos: [],
+    newTodos: [],
+    inputValue: "",
+    message: "",
+    messageVisible: false
+  };
 
   handleInputChange = event => {
     this.setState({ inputValue: event.target.value });
@@ -21,37 +28,59 @@ class App extends React.Component {
     this.setState({
       todos: this.state.todos.filter(todo => {
         return todo !== remove;
-      })
+      }),
+      messageVisible: true,
+      message: "Todo removed"
     });
-    console.log("Deleted", this.state.todos);
   };
 
-  // TODO: CLEAR ALL TODOS (link button to this function)
-  // clearAllTodos = e => {
-  //   const { todos } = this.state;
-  //   this.setState({
-  //     todos: todos.filter(todo => {
-  //       console.log("removed all todos");
-  //       return todo !== todo;
-  //     })
-  //   });
-  // };
+  clearAllTodos = e => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.filter(todo => {
+        console.log("removed all todos");
+        // eslint-disable-next-line
+        return todo !== todo;
+      })
+    });
+  };
+
+  handleDismiss = () => {
+    this.setState({ messageVisible: false });
+  };
+
+  autoDismiss = () => {
+    setTimeout(() => {
+      this.setState({ messageVisible: false });
+    }, 2000);
+  };
 
   render() {
+    const { message, messageVisible } = this.state;
     return (
-      <div className="ui container">
-        <InputBar
-          handleInputChange={this.handleInputChange}
-          prevent={this.prevent}
-          addTodo={this.addTodo}
-        />
-        <TodoList
-          todos={this.state.todos}
-          deleteTodo={this.deleteTodo}
-          clearAllTodos={this.clearAllTodos}
-          message={this.state.message}
-        />
-      </div>
+      <React.Fragment>
+        <div className="ui container border" style={{ padding: "1em" }}>
+          <InputBar
+            handleInputChange={this.handleInputChange}
+            prevent={this.prevent}
+            addTodo={this.addTodo}
+          />
+          <TodoList
+            todos={this.state.todos}
+            deleteTodo={this.deleteTodo}
+            clearAllTodos={this.clearAllTodos}
+            message={message}
+          />
+        </div>
+        <div className="ui container">
+          <MessageToast
+            message={message}
+            messageVisible={messageVisible}
+            handleDismiss={this.handleDismiss}
+            autoDismiss={this.autoDismiss}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
